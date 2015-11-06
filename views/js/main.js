@@ -496,17 +496,19 @@ function changePizzaSizes(size) {
         break;
     }
 
+  //  document.getElementsByClassName("randomPizzaContainer").style.width = newwidth;
 
-  var cachedLength = document.getElementsByClassName("randomPizzaContainer").length;
 
-  for (var i = 0; i < cachedLength; i++) {
+  var elength = document.getElementsByClassName("randomPizzaContainer").length;
+
+  for (var i = 0; i < elength; i++) {
     var currentdocument =  document.getElementsByClassName("randomPizzaContainer")[i];
     //document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
     currentdocument.style.width = newwidth;
     //currentdocument.firstElementChild.style.width = firstwidth;
    // currentdocument.children[1].style.width = secondwidth;
     currentdocument.firstElementChild.children[0].src = imagesource;
-    console.log(currentdocument.firstElementChild.children[0].src);
+  //  console.log(currentdocument.firstElementChild.children[0].src);
   }
 }
 
@@ -534,25 +536,27 @@ function changePizzaSizes2(size) {
         break;
     }
 
-  var cachedLength = document.getElementsByClassName("randomPizzaContainer").length;
+  var elength = document.getElementsByClassName("randomPizzaContainer").length;
   var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
 
   console.log(windowwidth);
 
-  for (var i = 0; i < cachedLength; i++) {
+  for (var i = 0; i < elength; i++) {
 //     console.log(document.getElementsByClassName("randomPizzaContainer")[i]);
     var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[i], size, windowwidth);
     //var elementWidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth);
     var newwidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth + dx) + 'px';
 
     var currentdocument =  document.getElementsByClassName("randomPizzaContainer")[i];
+    currentdocument.style.width = newwidth;
     currentdocument.firstElementChild.children[0].src = imagesource;
 
    // console.log((document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth));
   //  console.log(newwidth);
   //  console.log(dx);
    // var newwidth = windowwidth + dx + 'px';
-    document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
+
+   // document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
 //     console.log(dx);
 //     console.log(newwidth);
 //     console.log(size); // 1 = small, 2 = medium, 3 = large
@@ -566,12 +570,12 @@ function changePizzaSizes1(size) {
   //   if(!nodes[i].classList.contains('exclude')) arr.push(nodes[i]);
   // }
 
-  var cachedLength = document.getElementsByClassName("randomPizzaContainer").length;
+  var elength = document.getElementsByClassName("randomPizzaContainer").length;
   var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
 
   console.log(windowwidth);
 
-  for (var i = 0; i < cachedLength; i++) {
+  for (var i = 0; i < elength; i++) {
 //     console.log(document.getElementsByClassName("randomPizzaContainer")[i]);
     var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[i], size, windowwidth);
     //var elementWidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth);
@@ -617,12 +621,12 @@ function updatePositions() {
 //   window.performance.mark("mark_start_frame");
 
 //   // var items = document.querySelectorAll('.mover');
-//   var cachedLength = document.getElementsByClassName('.mover').length;
+//   var elength = document.getElementsByClassName('.mover').length;
 //   var items = document.getElementsByClassName('.mover');
 //   var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
 //   var multiplier = 100 * phase + 'px';
 
-//   for (var i = 0; i < cachedLength; i++) {
+//   for (var i = 0; i < elength; i++) {
 //     items[i].style.left = items[i].basicLeft + multiplier;
 //   }
 
