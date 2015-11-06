@@ -610,15 +610,32 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   var items =  document.getElementsByClassName("mover");
+  var itemcount = items.length;
+  var moverange = window.innerWidth / 8;
 //  console.log(items.length);
 
   //var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
- //   console.log(Math.sin((document.body.scrollTop / 1250)));
-//    console.log(phase);
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  //console.log(calc);
+  var step = 0;
+ // console.log(moverange.toString());
+  for (var i = 0; i < itemcount; i++) {
+
+   // var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    //items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     //console.log(i + ' = ' + items[i].basicLeft + 100 * phase);
+
+    //var phase = Math.sin((document.body.scrollTop / 1250) + step);
+    //console.log(phase.toString());
+    var currentLeft = items[i].basicLeft;
+    //var phase = step * currentLeft;
+    var phase = Math.sin((document.body.scrollTop / 1250) + step);
+   // console.log(currentLeft);
+
+    items[i].style.left = currentLeft + phase * 100 + 'px';
+    step += 1;
+    if (step > 4) {
+      step = 0;
+    }
   }
 
 // function updatePositions1() {
@@ -675,9 +692,9 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('vw = ' + viewPortWidth);
   console.log('vh = ' + viewPortHeight);
 
-  var hspace = viewPortWidth / 4;  // 1000 / 8 = 125
+  var hspace = viewPortWidth / 6;  // 1000 / 8 = 125
   var vspace = viewPortHeight / 4; // 1000 / 4 = 250
-  var total = 32;
+  var total = 24;
 
   console.log('hspace = ' + hspace.toString());
   console.log('vspace = ' + vspace);
@@ -693,15 +710,17 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.src = "images/pizza-large.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
-    elem.basicLeft = hstep *  hspace; // range from 0 - width / 4
+    elem.style.left = hstep * hspace + 'px'; // range from 0 - width / 4
+    elem.basicLeft = hstep * hspace;
+    console.log(elem.style.left);
 //    console.log(elem.basicLeft);
     elem.style.top = vstep * vspace + 'px';
 //    console.log(elem.style.top);
     document.querySelector("#movingPizzas1").appendChild(elem);
     hstep += 1;
-    if (hstep > 8) {
+    if (hstep > 5) {
       hstep = 0;
-      vstep+= 1;
+      vstep += 1;
       if (vstep > 4) {
         vstep = 0;
         hstep = 0;
