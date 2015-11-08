@@ -60,6 +60,11 @@
       background-color: rgba(240, 60, 60, 0.8);
     }
 
+/*    #movingPizzas1 {
+      backspace-visibility: hidden;
+      transform: translateZ(0);
+    }*/
+
     /* Smartphones (portrait) */
     @media only screen and (max-width: 480px) {
       body { font-size: 12px;}
@@ -201,7 +206,11 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/main.js"> async</script>
+  <script>
+  loadPizzas();
+  </script>
+
 </body>
 
 </html>
