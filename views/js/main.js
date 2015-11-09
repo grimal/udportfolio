@@ -508,10 +508,10 @@ function updatePositions() {
   // values despite over calculating numbers.
   phase = [];
   phase[0] = Math.sin(newPosition);
-  phase[1] = Math.sin(newPosition + 1);
-  phase[2] = Math.sin(newPosition + 2);
-  phase[3] = Math.sin(newPosition + 3);
-  phase[4] = Math.sin(newPosition + 4);
+  phase[1] = Math.sin(newPosition + 1) * 100;
+  phase[2] = Math.sin(newPosition + 2) * 100;
+  phase[3] = Math.sin(newPosition + 3) * 100;
+  phase[4] = Math.sin(newPosition + 4) * 100;
 
   // for (var i = 0; i < 5; i++) {
   //   phase.push(Math.sin(newPosition + i));
@@ -523,7 +523,8 @@ function updatePositions() {
 
   for (i = 0; i < index; i++) {
     // Changed exisiting calculation to be translate3d for performance boost.
-    floatingPizzas[i].style.transform = 'translate3d(' + phase[step] * 100 + 'px, 0, 0)';
+    floatingPizzas[i].style.transform = 'translate3d(' + phase[step] + 'px, 0, 0)';
+
     step += 1;
     if (step > 4) {
       step = 0;
@@ -550,22 +551,22 @@ function updatePositions() {
   }
 }
 
-function main() {
-  // Created this as a main loop to update page.
-  //var now = Date.now();
-  //var dt = (now - lastTime) / 1000;
- // console.log(dt);
- // Only updates if the ap value is set to true; a value that is set by the scroll event.
- if (ap) {
-  updatePositions();
-  }
+// function main() {
+//   // Created this as a main loop to update page.
+//   //var now = Date.now();
+//   //var dt = (now - lastTime) / 1000;
+//  // console.log(dt);
+//  // Only updates if the ap value is set to true; a value that is set by the scroll event.
+//  if (ap) {
+//   updatePositions();
+//   }
 
-  //render();
- // lastTime = now;
- // Sets the main loop in motion.
-  window.requestAnimationFrame(main);
+//   //render();
+//  // lastTime = now;
+//  // Sets the main loop in motion.
+//   window.requestAnimationFrame(main);
 
-}
+// }
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
@@ -584,7 +585,7 @@ var pizzasDiv = document.getElementById("randomPizzas");
 // }
 
 // Lowered the number of pizzas generated to improve performance.  Previously was generating 100.
-for (var i = 2; i < 20; i++) {
+for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -614,22 +615,24 @@ window.addEventListener('scroll', startAnimation);
 
 // Moved this from document.addEventListener('DOMContentLoaded' to a stand alone function called from pizza.html at end.
 // This might boost performance a bit.
-function loadPizzas() {
+//function loadPizzas() {
+
+document.addEventListener('DOMContentLoaded', function() {
 
   var viewPortWidth = window.innerWidth,
       viewPortHeight = window.innerHeight;
 
 
-  var hspace = viewPortWidth / 4;
+  var hspace = viewPortWidth / 3.5;
   var vspace = viewPortHeight / 4;
   // Changed number of pizzas created to be less than original value of 200 since only roughly 20 can be seen at a time.
-  var total = 16;
+  var c = 15; //
 
   var hstep = 0;
   var vstep = 0;
 
 // For this for loop, have all of the items populate an array instead of the DOM to boost performance.
-  for (var i = 0; i < total; i++) {
+  for (var i = 0; i <= c; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza-large.png";
@@ -644,22 +647,36 @@ function loadPizzas() {
     if (hstep > 3) {
       hstep = 0;
       vstep += 1;
-      if (vstep > 3) {
+      if (vstep > 4) {
         vstep = 0;
         hstep = 0;
       }
     }
+
   }
 
+  var fpl = floatingPizzas.length;
   //  After the array has been populated, populate the DOM from array contents.
-  for (var index = 0; index < floatingPizzas.length; index++) {
-    document.querySelector("#movingPizzas1").appendChild(floatingPizzas[index]);
+  for (var index = 0; index < fpl; index++) {
+    document.getElementById("movingPizzas1").appendChild(floatingPizzas[index]);
   }
   updatePositions();
-}
+})
 
 function startAnimation() {
   ap = true;
+  window.requestAnimationFrame(updatePositions);
 }
 
-main();
+function measureCRP() {
+var t = window.performance.timing,
+  interactive = t.domInteractive - t.domLoading,
+  dcl = t.domContentLoadedEventStart - t.domLoading,
+  complete = t.domComplete - t.domLoading;
+
+console.log('interactive: ' + interactive + 'ms, ' +
+    'dcl: ' + dcl + 'ms, complete: ' + complete + 'ms');
+}
+
+measureCRP();
+//main();
