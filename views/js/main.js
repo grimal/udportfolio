@@ -383,8 +383,7 @@ var pizzaElementGenerator = function(i) {
   pizzaImage.style.backfaceVisibility = 'hidden';
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
-  // Added the following to help ID the images.
-  pizzaImageContainer.id = "image";
+
   pizzaContainer.appendChild(pizzaImageContainer);
 
 
@@ -435,20 +434,6 @@ function changeSliderLabel(size) {
   }
 }
 
-// Changes the slider value to a percent width
-// Moved this function definition outside of the resizePizzas function to optimize.
-function sizeSwitcher (size) {
-  switch(size) {
-    case "1":
-      return 0.25;
-    case "2":
-      return 0.3333;
-    case "3":
-      return 0.5;
-    default:
-      console.log("bug in sizeSwitcher");
-  }
-}
 // Moved this function definition outside of the resizePizzas function to optimize.
 function changePizzaSizes(size) {
   var newwidth;
@@ -497,10 +482,9 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var index = floatingPizzas.length;
+  var c = floatingPizzas.length;
+  var i = 0;
 
-  //var moverange = window.innerWidth / 8;
-  //var moveArray = [];
   // Moved calculation outside of for-loop to improve performance.
   var newPosition = document.body.scrollTop / 1250;
 
@@ -508,34 +492,22 @@ function updatePositions() {
   // values despite over calculating numbers.
   phase = [];
   phase[0] = Math.sin(newPosition);
-  phase[1] = Math.sin(newPosition + 1) * 100;
-  phase[2] = Math.sin(newPosition + 2) * 100;
-  phase[3] = Math.sin(newPosition + 3) * 100;
-  phase[4] = Math.sin(newPosition + 4) * 100;
+  phase[1] = Math.sin(newPosition + 1);
+  phase[2] = Math.sin(newPosition + 2);
+  phase[3] = Math.sin(newPosition + 3);
+  phase[4] = Math.sin(newPosition + 4);
 
-  // for (var i = 0; i < 5; i++) {
-  //   phase.push(Math.sin(newPosition + i));
-  // }
-
-
- // throw new Error('shit happened');
   var step = 0;
 
-  for (i = 0; i < index; i++) {
+  var divs =  document.getElementsByClassName("mover");
+  for (i = 0; i < c; i++) {
     // Changed exisiting calculation to be translate3d for performance boost.
-    floatingPizzas[i].style.transform = 'translate3d(' + phase[step] + 'px, 0, 0)';
+    divs[i].style.transform = 'translate3d(' + 100 * phase[step] + 'px, 0, 0)';
 
     step += 1;
     if (step > 4) {
       step = 0;
     }
-  }
-
-  var divs =  document.getElementsByClassName("mover");
- // var divcount = divs.length;
-
-  for (index = 0; index < floatingPizzas.length; index++) {
-    divs[index].style.transform = floatingPizzas[index].style.transform;
   }
 
   // Turns the animation variable off.
@@ -551,40 +523,11 @@ function updatePositions() {
   }
 }
 
-// function main() {
-//   // Created this as a main loop to update page.
-//   //var now = Date.now();
-//   //var dt = (now - lastTime) / 1000;
-//  // console.log(dt);
-//  // Only updates if the ap value is set to true; a value that is set by the scroll event.
-//  if (ap) {
-//   updatePositions();
-//   }
-
-//   //render();
-//  // lastTime = now;
-//  // Sets the main loop in motion.
-//   window.requestAnimationFrame(main);
-
-// }
-
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
 var pizzasDiv = document.getElementById("randomPizzas");
-// var pda = [];
 
-// for (var i = 2; i < 20; i++) {
-//   pda.push(pizzaElementGenerator(i));
-//   //pizzasDiv.appendChild(pizzaElementGenerator(i));
-// }
-
-//console.log(pda);
-// for (i = 2; i < 20; i++) {
-//   pizzasDiv.appendChild(pda[i]);
-// }
-
-// Lowered the number of pizzas generated to improve performance.  Previously was generating 100.
 for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
@@ -600,7 +543,6 @@ console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "
 
 // These are all the instantiated variabled used throughout document.
 var frame = 0;
-//var lastTime = null;
 var ap = false; // declares animation to be turned off by default.
 var phase = [];
 var imagesource = null;
@@ -611,11 +553,6 @@ var floatingPizzas = [];
 // runs updatePositions on scroll.  This originally triggered the updatePositions function.  However, changing this allows
 // the document to refresh when it has the resources to instead of forcing it on scroll.
 window.addEventListener('scroll', startAnimation);
-
-
-// Moved this from document.addEventListener('DOMContentLoaded' to a stand alone function called from pizza.html at end.
-// This might boost performance a bit.
-//function loadPizzas() {
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -657,10 +594,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var fpl = floatingPizzas.length;
   //  After the array has been populated, populate the DOM from array contents.
-  for (var index = 0; index < fpl; index++) {
-    document.getElementById("movingPizzas1").appendChild(floatingPizzas[index]);
+  for (i = 0; i < fpl; i++) {
+    document.getElementById("movingPizzas1").appendChild(floatingPizzas[i]);
   }
-  updatePositions();
 })
 
 function startAnimation() {
@@ -679,4 +615,3 @@ console.log('interactive: ' + interactive + 'ms, ' +
 }
 
 measureCRP();
-//main();

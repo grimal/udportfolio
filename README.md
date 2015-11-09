@@ -1,5 +1,28 @@
 ## Website Performance Optimization portfolio project
 
+Optimization reports:
+
+
+index.html:
+
+1. In-lined CSS.  This reduced the CRP.
+2. Added async to script.
+3. Implemented Font Loader script to optimize font loading time.
+
+pizza.html:
+
+1. Moved the following function definitions out of the resizePizzas() function: sub function defintions
+2. Removed calculations from within two of the for-loops within the following functions: changeSliderLabel(), changePizzaSizes().
+3. Removed the functions determineDx(), sizeSwitcher() as they were unnecessary and the calculations from the former were drastically slowing down the scripting.
+4. Added floatingpizza array for quicker creation of the floatingpizzas.
+5. Created startAnimation function.  Associated this with the scroll event.  This utilizes the requestAnimationFrame, thus allowing the browser to update the floating pizzas based on the browser's availabilty versus being forced through the scroll event.
+6. Modified changePizzas() to change the image source based on the slider value.
+7. Created three optimized pizza sizes that correspond to their image dimensions via grunt and gulp.  They are called pizza-small, pizza-medium, and pizza-large.  Drastically optimized pizzeria.jpg image.
+8. Added style.backfaceVisibility = 'hidden' to all pizza images (floating and static).  Should force the gpu to handle some of the image work.
+9. Changed the updatePositions() function to adjust the X position with translate3d vs. using the offset as before.  This should provide a performance boost through this CSS hack.
+10. Replaced the over-complicated mathematical calculations in updatePositions() for the Math.sin calls.
+11. Minimized HTML, CSS and JS.
+
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,

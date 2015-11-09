@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content=" FILL ME IN ">
-    <meta name="author" content=" FILL ME IN ">
+    <meta name="description" content="This is my portfolio page">
+    <meta name="author" content="Cameron Pittman.  Modified by Phillip Stafford. ">
     <title>Phillip Stafford: Portfolio</title>
+    <!-- Modified the following to include all CSS in-line to accomplish a page speed score of at least 90 for mobile and desktop. -->
     <style>
       html {
       font-size: 100%;
@@ -58,12 +59,6 @@
       }
     </style>
 
-    <noscript><link href="css/style.css" rel="stylesheet"></noscript>
-
-    <!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
-    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
-    <!-- Anything with a link reference is going to render block. -->
-<!--     <link href="css/style.css" rel="stylesheet"> -->
     <link href="css/print.css" rel="stylesheet" media="print">
 
     <script>
@@ -74,6 +69,7 @@
       ga('create', 'UA-XXXX-Y');
       ga('send', 'pageview');
     </script>
+    <!-- Added async attribute to script to reduce the CRP. -->
     <script src="http://www.google-analytics.com/analytics.js" async></script>
     <script async src="js/perfmatters.js"></script>
   </head>
@@ -111,7 +107,7 @@
 
           <li>
             <img style="width: 100px;" src="views/images/pizzeria.jpg">
-            <a href="views/pizza.html">Cam's Pizzeria</a>
+            <a href="views/pizza.html">Phil's Pizzeria</a>
             <p>Who wants a performant pizza?</p>
           </li>
         </ul>
@@ -121,19 +117,17 @@
       <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
     </footer>
   </body>
-
+  <!-- Added the Webloader script to optimize font loading. -->
   <script>
    WebFontConfig = {
       google: {
         families: ['Open Sans:400,700']
       }
    };
-
    (function(d) {
       var wf = d.createElement('script'), s = d.scripts[0];
       wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
       s.parentNode.insertBefore(wf, s);
    })(document);
 </script>
-
 </html>
