@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
   for (i = 0; i < fpl; i++) {
     document.getElementById("movingPizzas1").appendChild(floatingPizzas[i]);
   }
-})
+});
 
 function startAnimation() {
   ap = true;
