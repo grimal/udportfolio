@@ -1,4 +1,4 @@
-**Website Performance Optimization portfolio project**
+## Website Performance Optimization portfolio project
 
 This optimization project was part of the Udacity Front End Nanodegree course.  The objectives for this project are the following:
 
