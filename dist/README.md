@@ -1,4 +1,4 @@
-## Website Performance Optimization portfolio project
+**Website Performance Optimization portfolio project**
 
 This optimization project was part of the Udacity Front End Nanodegree course.  The objectives for this project are the following:
 
@@ -7,7 +7,7 @@ This optimization project was part of the Udacity Front End Nanodegree course.  
 	3) Achieve a consistent 60fps when scrolling in pizza.html.
 	3) Clear comments in views/js/main.js, index.html, and views/pizza.html explaining the optimzations performed.
 
-## Optimization reports:
+**Optimization reports:**
 
 dist/ contains the production code.
 
@@ -36,7 +36,7 @@ dist/ contains the production code.
 		11. Minimized HTML, CSS and JS.
 
 
-## Installation:
+**Installation:**
 
 Check out the repository : https://github.com/grimal/udportfolio and clone to your computer.
 
@@ -55,7 +55,7 @@ To analyze the code and host on your PC for testing purposes:
 
 4. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
 
-## License:
+**License:**
 
 Forked from source code belonging to Cameron Pittman and Udacity.
 
