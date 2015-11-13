@@ -11,7 +11,7 @@ This optimization project was part of the Udacity Front End Nanodegree course.  
 
 dist/ contains the production code.
 
-1. Arriving at approximately > 1ms for each resize pizza cycle.
+1. Arriving at approximately < .2ms for each resize pizza cycle.
 2. Floating pizzas rendering at 60fps throughout scrolling. Average time to generate last ten frames: .1 - .15.
 
   Specifics:

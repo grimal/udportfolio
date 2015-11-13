@@ -19,20 +19,20 @@ module.exports = function(grunt) {
 		  optimizationLevel: 3, // 232 * 300
           engine: 'im',
           sizes: [{
-			  width: 116,
-        height: 150,
+			  width: 187,
+        height: 243,
 			  quality: 30
 		  }, {
-			  width: 77,
-        height: 100,
+			  width: 94,
+        height: 121,
 			  quality: 30
           }, {
         width: 100,
         height: 75,
         quality: 30
           },{
-			  width: 58,
-        height: 75,
+			  width: 31,
+        height: 40,
 			  quality: 30
           }]
         },

@@ -468,6 +468,7 @@ function changeSliderLabel(size) {
     }
 }
 
+
 // Moved this function definition outside of the resizePizzas function to optimize.
 function changePizzaSizes(size) {
     "use strict";
@@ -485,14 +486,13 @@ function changePizzaSizes(size) {
         default:
             break;
     }
-    // Moved these variables outside for-loop below to improve performance.
-    var e = document.getElementsByClassName("randomPizzaContainer");
-    var elength = e.length;
 
-    for (var i = 0; i < elength; i++) {
-        var currentdocument = e[i];
-        currentdocument.style.width = newwidth;
-        currentdocument.firstElementChild.children[0].style.width = newwidth;
+    // Moved these variables outside for-loop below to improve performance.
+    var pizzaelements = document.getElementsByClassName("randomPizzaContainer");
+    var plength = pizzaelements.length;
+
+    for (var idx = 0; idx < plength; idx++) {
+        pizzaelements[idx].style.width = newwidth;
     }
 }
 
@@ -514,8 +514,8 @@ function updatePositions() {
     frame++;
     window.performance.mark("mark_start_frame");
 
-    var c = floatingPizzas.length;
-    var i = 0;
+    var floatingpizzaslength = floatingPizzas.length;
+    var idx = 0;
     var phase = [];
 
     // Moved calculation outside of for-loop to improve performance.
@@ -523,21 +523,14 @@ function updatePositions() {
 
     // Moved these calculations outside for-loop for performance benefit.  Original calculations would only yield five same
     // values despite over calculating numbers.
-    for (i = 0; i < 5; i++) {
-        phase[i] = Math.sin(newPosition + i);
+    for (idx = 0; idx < 5; idx++) {
+        phase[idx] = Math.sin(newPosition + idx);
     }
 
-    var step = 0;
-
     var divs = document.getElementsByClassName("mover");
-    for (i = 0; i < c; i++) {
+    for (idx = 0; idx < floatingpizzaslength; idx++) {
         // Changed exisiting calculation to be translate3d for performance boost.
-        divs[i].style.transform = 'translate3d(' + 100 * phase[step] + 'px, 0, 0)';
-
-        step += 1;
-        if (step > 4) {
-            step = 0;
-        }
+        divs[idx].style.transform = 'translate3d(' + 100 * phase[idx % 5] + 'px, 0, 0)';
     }
 
     // Turns the animation variable off.
@@ -555,12 +548,6 @@ function updatePositions() {
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
-// This for-loop actually creates and appends all of the pizzas when the page loads
-var pizzasDiv = document.getElementById("randomPizzas");
-
-for (var i = 2; i < 100; i++) {
-    pizzasDiv.appendChild(pizzaElementGenerator(i));
-}
 
 // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
 window.performance.mark("mark_end_generating");
@@ -577,6 +564,15 @@ var ap = false; // declares animation to be turned off by default.
 
 // Array created to reference the floating pizzas in the DOM.
 var floatingPizzas = [];
+var staticpizzas = [];
+
+// This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
+
+for (var idx = 2; idx < 100; idx++) {
+    staticpizzas.push(pizzaElementGenerator(idx));
+    pizzasDiv.appendChild(pizzaElementGenerator(idx));
+}
 
 // runs updatePositions on scroll.  This originally triggered the updatePositions function.  However, changing this allows
 // the document to refresh when it has the resources to instead of forcing it on scroll.
@@ -592,13 +588,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var hspace = viewPortWidth / 3.5;
     var vspace = viewPortHeight / 4;
     // Changed number of pizzas created to be less than original value of 200 since only roughly 20 can be seen at a time.
-    var c = 15; //
+    var pizzacount = 15; //
 
     var hstep = 0;
     var vstep = 0;
 
     // For this for loop, have all of the items populate an array instead of the DOM to boost performance.
-    for (var i = 0; i <= c; i++) {
+    for (var idx = 0; idx <= pizzacount; idx++) {
         var elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza-large.png";
@@ -618,13 +614,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 hstep = 0;
             }
         }
-
     }
 
     var fpl = floatingPizzas.length;
     //  After the array has been populated, populate the DOM from array contents.
-    for (i = 0; i < fpl; i++) {
-        document.getElementById("movingPizzas1").appendChild(floatingPizzas[i]);
+    for (idx = 0; idx < fpl; idx++) {
+        document.getElementById("movingPizzas1").appendChild(floatingPizzas[idx]);
     }
 });
 
